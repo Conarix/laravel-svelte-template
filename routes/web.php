@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\Permission;
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Middleware\HasPermission;
 use Illuminate\Support\Facades\Route;
@@ -13,6 +14,13 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
+
+    Route::prefix('account')->name('account.')->group(function () {
+        Route::get('/', [AccountController::class, 'show'])->name('show');
+        Route::patch('/password', [AccountController::class, 'update'])->name('update-password');
+
+        Route::delete('/', [AccountController::class, 'destroy'])->name('destroy');
+    });
 
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::middleware(HasPermission::permission(Permission::USERS_VIEW))->group(function () {

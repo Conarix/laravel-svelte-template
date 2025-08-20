@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Settings, LogOut } from "@lucide/svelte";
+    import { Settings, LogOut, User } from "@lucide/svelte";
     import {page, router} from "@inertiajs/svelte";
     import ColourSchemeSelect from "@/Components/Layout/ColourSchemeSelect.svelte";
 
@@ -44,6 +44,12 @@
                     <h2>Colour Scheme</h2>
                     <ColourSchemeSelect />
                 </div>
+
+                <a class="flex justify-between items-center w-full p-2 hover:bg-accent rounded-lg" href={route('account.show')}>
+                    <User />
+
+                    <span>Manage Account</span>
+                </a>
 
                 <button class="flex justify-between items-center w-full p-2 hover:bg-accent rounded-lg" onclick={logout}>
                     <LogOut class="text-red-500" />

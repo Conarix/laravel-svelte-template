@@ -2,7 +2,7 @@
     import type { Snippet } from "svelte";
     import Card from "@/Components/UI/Card.svelte";
     import AppLogo from "@/Components/UI/AppLogo.svelte";
-    import { Toaster } from "svelte-sonner";
+    import ToastFromSession from "@/Components/Layout/ToastFromSession.svelte";
 
     let { children } : { children?: Snippet } = $props();
 </script>
@@ -21,7 +21,7 @@
     </Card>
 </div>
 
-<Toaster richColors position="top-right" />
+<ToastFromSession />
 
 <style lang="scss">
     @use 'sass:math';
