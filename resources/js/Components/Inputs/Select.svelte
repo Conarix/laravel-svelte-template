@@ -100,9 +100,9 @@
     <FieldLabel {id}>{label}</FieldLabel>
     <button type="button" class={inputClasses} onclick={() => {showPopup = !showPopup}}>
         <span class="flex justify-between items-center mx-2 w-full">
-            <span class="text-ellipsis">{displayValue}</span>
+            <span class="text-nowrap text-ellipsis overflow-hidden">{displayValue}</span>
 
-            <ChevronDown />
+            <ChevronDown className="flex-shrink-0" />
         </span>
     </button>
     <InputError {error} />

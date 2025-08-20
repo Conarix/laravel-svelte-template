@@ -171,5 +171,19 @@
 
     body {
         @apply bg-background text-foreground;
+
+        --cp-bg-color: var(--background);
+        --cp-border-color: var(--border);
+        --cp-text-color: var(--color-foreground);
+        --cp-input-color: var(--input);
+
+        --date-picker-foreground: var(--color-foreground);
+        --date-picker-background: var(--background);
+        --date-picker-highlight-border: var(--border);
+        --date-picker-highlight-shadow: var(--shadow);
+        --date-picker-selected-color: var(--color-foreground);
+        --date-picker-selected-background: var(--accent);
+
+        --date-input-width: 100%;
     }
 }

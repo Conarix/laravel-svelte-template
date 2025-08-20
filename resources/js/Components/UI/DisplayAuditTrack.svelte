@@ -31,9 +31,13 @@
     </div>
 
     <div class="flex flex-col justify-start items-start flex-grow gap-2">
-        <h2 class="text-lg font-semibold">Changes:</h2>
-        {#each Object.entries(auditTrack.changes) as [field, newValue] (field)}
-            <span>{ titleCase(field) }: { newValue } </span>
-        {/each}
+        {#if auditTrack.creation}
+            <h2 class="text-lg font-semibold">Record Created</h2>
+        {:else}
+            <h2 class="text-lg font-semibold">Changes:</h2>
+            {#each Object.entries(auditTrack.changes) as [field, newValue] (field)}
+                <span>{ titleCase(field) }: { newValue } </span>
+            {/each}
+        {/if}
     </div>
 </div>

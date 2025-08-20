@@ -1,4 +1,5 @@
 import { onMount } from 'svelte';
+import {theme} from "@/utils/meta.svelte";
 
 export type Appearance = 'light' | 'dark' | 'system';
 
@@ -25,8 +26,10 @@ export function updateTheme(value: Appearance) {
     if (value === 'system') {
         const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         document.documentElement.classList.toggle('dark', systemTheme === 'dark');
+        theme.set(systemTheme);
     } else {
         document.documentElement.classList.toggle('dark', value === 'dark');
+        theme.set(value === 'dark' ? 'dark' : 'light');
     }
 }
 

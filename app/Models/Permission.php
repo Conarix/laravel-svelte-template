@@ -43,6 +43,11 @@ class Permission extends Model
         ]);
     }
 
+    public static function deleteByEnum(PermissionEnum $enum): Permission
+    {
+        return static::query()->where('name', $enum->value)->delete();
+    }
+
     public static function findByEnum(PermissionEnum $enum): ?Permission
     {
         return static::firstWhere('name', $enum->value);

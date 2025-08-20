@@ -105,7 +105,7 @@ class UserController extends Controller
         return redirect()->route('admin.users.show', [$user]);
     }
 
-    public function delete(User $user)
+    public function destroy(User $user)
     {
         $user->delete();
 
