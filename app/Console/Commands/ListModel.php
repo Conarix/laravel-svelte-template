@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
 use Symfony\Component\Finder\Finder;
@@ -51,7 +52,10 @@ class ListModel extends Command
         /** @var class-string<Model> $modelClass */
         $modelClass = "App\\Models\\{$modelBasename}";
 
+        $softDeletes = in_array(SoftDeletes::class, class_uses($modelClass));
+
         $records = $modelClass::query()
+            ->when($softDeletes, fn ($query) => $query->withTrashed())
             ->paginate(
                 perPage: $perPage,
                 page: $page
@@ -75,9 +79,25 @@ class ListModel extends Command
         // Display table
         \Laravel\Prompts\info("Viewing page $page of {$records->lastPage()} for Model $modelBasename");
 
+        $headers = array_map(fn ($col) => str($col)->headline(), $showColumns);
+        $rows = $records->getCollection();
+
+        if ($softDeletes) {
+            /** @var Collection<array-key, SoftDeletes> $rows */
+            $headers[] = 'Deleted';
+
+            $rows->each(fn (Model $row) => $row->setAttribute('deleted', ($row->{$row->getDeletedAtColumn()} ? 'Yes' : 'No')));
+
+            $rows = $rows->select(array_merge($showColumns, ['deleted']))->toArray();
+        } else {
+            /** @var Collection<array-key, Model> $rows */
+
+            $rows = $rows->select($showColumns)->toArray();
+        }
+
         table(
-            headers: array_map(fn ($col) => str($col)->headline(), $showColumns),
-            rows: $records->getCollection()->select($showColumns)->toArray(),
+            headers: $headers,
+            rows: $rows,
         );
 
         // Display number of pages
