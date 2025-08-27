@@ -2,11 +2,9 @@ import type {Component} from "svelte";
 import type {IconProps} from "@lucide/svelte";
 import type {Config} from "ziggy-js";
 import {PermissionEnum, RoleEnum, ToastTypeEnum} from "@/types/enums";
-import type {HTMLButtonAttributes} from "svelte/elements";
 import type {ButtonVariant} from "@/Components/UI/Button.svelte";
 import type {Writable} from "svelte/store";
 import type {InertiaForm} from "@inertiajs/svelte";
-import type {toast} from "svelte-sonner";
 
 export interface AuditTrack {
     id: number,
@@ -136,3 +134,6 @@ export interface Option {
 }
 
 export type CastFunction<T> = (value: T) => T;
+
+export type OpenDialogFunction = undefined | (() => void);
+export type CloseDialogFunction = undefined | (() => void);

@@ -1,12 +1,12 @@
 <script lang="ts">
     import HeaderButtons from '@/Layouts/HeaderButtons.svelte'
-    import type {HeaderButton} from "@/types";
+    import type {CloseDialogFunction, HeaderButton, OpenDialogFunction} from "@/types";
     import PageHeading from "@/Components/UI/PageHeading.svelte";
     import type {User} from "@/types";
     import FieldRow from "@/Components/Forms/Partials/FieldRow.svelte";
     import FieldDisplay from "@/Components/UI/FieldDisplay.svelte";
     import FieldDisplayList from "@/Components/UI/FieldDisplayList.svelte";
-    import {dateToString, dialogShow, titleCase} from "@/utils/helpers";
+    import {dateToString, titleCase} from "@/utils/helpers";
     import Base from "@/Components/Forms/Partials/Base.svelte";
     import {router, useForm} from "@inertiajs/svelte";
     import Password from "@/Components/Inputs/Password.svelte";
@@ -15,9 +15,13 @@
     import Button from "@/Components/UI/Button.svelte";
     import Debug from "@/Components/Debug.svelte";
 
+
+    let openDeleteDialog: OpenDialogFunction = $state();
+    let closeDeleteDialog: CloseDialogFunction = $state();
+
     const buttons: HeaderButton[] = [
         {
-            onclick: () => dialogShow('account-delete-confirmation'),
+            onclick: () => openDeleteDialog?.(),
             label: "Delete",
             variant: 'destructive',
         }
@@ -94,7 +98,7 @@
         </Base>
     </div>
 
-    <Dialog id="account-delete-confirmation">
+    <Dialog bind:openDialog={openDeleteDialog} bind:closeDialog={closeDeleteDialog}>
         <h1 class="text-xl font-bold">Delete Account</h1>
 
         <p>Are you sure you want to delete this account?</p>

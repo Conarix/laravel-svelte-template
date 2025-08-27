@@ -1,10 +1,10 @@
 <script lang="ts">
 
-    import type {HeaderButton, User, WithAuditTracks} from "@/types";
+    import type {CloseDialogFunction, HeaderButton, OpenDialogFunction, User, WithAuditTracks} from "@/types";
     import FieldRow from "@/Components/Forms/Partials/FieldRow.svelte";
     import FieldDisplay from "@/Components/UI/FieldDisplay.svelte";
     import FieldDisplayList from "@/Components/UI/FieldDisplayList.svelte";
-    import {dateToString, dialogHide, dialogShow, titleCase} from "@/utils/helpers";
+    import {dateToString, titleCase} from "@/utils/helpers";
     import HeaderButtons from "@/Layouts/HeaderButtons.svelte";
     import PageHeading from "@/Components/UI/PageHeading.svelte";
     import {PermissionEnum} from "@/types/enums";
@@ -22,6 +22,11 @@
         user: WithAuditTracks<User>
     } = $props();
 
+    let openDeleteDialog: OpenDialogFunction = $state();
+    let closeDeleteDialog: CloseDialogFunction = $state();
+    let openRegenerateDialog: OpenDialogFunction = $state();
+    let closeRegenerateDialog: CloseDialogFunction = $state();
+
     const buttons: HeaderButton[] = $derived.by(() => {
         const btns: HeaderButton[] = [
             {
@@ -36,7 +41,7 @@
                 permission: PermissionEnum.USERS_EDIT
             },
             {
-                onclick: () => dialogShow("token-regenerate-confirmation"),
+                onclick: () => openRegenerateDialog?.(),
                 label: 'Regenerate Token',
                 variant: 'destructive',
                 permission: PermissionEnum.USERS_EDIT
@@ -52,7 +57,7 @@
             })
         } else {
             btns.push({
-                onclick: () => dialogShow("user-delete-confirmation"),
+                onclick: () => openDeleteDialog?.(),
                 label: 'Delete',
                 variant: 'destructive',
                 permission: PermissionEnum.USERS_DELETE
@@ -66,7 +71,7 @@
         router.delete(
             route('admin.users.delete', [user.id]),
             {
-                onFinish: () => dialogHide("user-delete-confirmation"),
+                onFinish: () => closeDeleteDialog?.(),
                 onError: () => toast.error("Failed to delete user"),
             },
         );
@@ -77,7 +82,7 @@
             route('admin.users.token.regenerate', [user.id]),
             undefined,
             {
-                onFinish: () => dialogHide("token-regenerate-confirmation"),
+                onFinish: () => closeRegenerateDialog?.(),
                 onError: () => toast.error("Failed to regenerate API Token"),
             }
         )
@@ -115,7 +120,7 @@
 
     <ShowAuditHistory auditTracked={user} />
 
-    <Dialog id="user-delete-confirmation">
+    <Dialog bind:openDialog={openDeleteDialog} bind:closeDialog={closeDeleteDialog}>
         <h1 class="text-xl">Delete User - {user.name}?</h1>
 
         <hr class="my-1 border-border w-full" />
@@ -129,7 +134,7 @@
         </div>
     </Dialog>
 
-    <Dialog id="token-regenerate-confirmation">
+    <Dialog bind:openDialog={openRegenerateDialog} bind:closeDialog={closeRegenerateDialog}>
         <h1 class="text-xl">Regenerate API Token for {user.name}?</h1>
 
         <hr class="my-1 border-border w-full" />

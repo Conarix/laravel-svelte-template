@@ -103,24 +103,3 @@ export const ucfirst = (s: string) =>
 
 export const is_numeric = (s: string) =>
     !isNaN(parseFloat(s)) && isFinite(parseFloat(s));
-
-export const dialogShow = (id: string): void => {
-    const dialogElement = document.getElementById(id);
-    if (!dialogElement) {
-        console.error(`Failed to get dialog: ${id}`);
-        return;
-    }
-
-    dialogElement.style.display = 'flex';
-    dialogElement.focus();
-};
-
-export const dialogHide = (id: string): void => {
-    const dialogElement = document.getElementById(id);
-    if (!dialogElement) {
-        console.error(`Failed to get dialog: ${id}`);
-        return;
-    }
-
-    dialogElement.style.display = 'none';
-};
