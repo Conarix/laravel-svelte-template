@@ -5,21 +5,32 @@
     import type {IconProps} from "@lucide/svelte";
     import {Link} from "@inertiajs/svelte";
     import {page} from "@inertiajs/svelte";
+    import type {MediaQuery} from "svelte/reactivity";
 
-    const {
+    let {
         icon,
         label,
         route,
         openState,
+        open = $bindable(),
+        smallView,
     } : {
         icon: Component<IconProps>,
         label: string,
-        route?: string
-        openState?: boolean
+        route?: string,
+        openState?: boolean,
+        open: boolean,
+        smallView: MediaQuery,
     } = $props();
 
     const IconComponent = $derived(icon);
     const selected = $derived(route === $page.props.ziggy.location);
+
+    const onSuccess = () => {
+        if (smallView.current) {
+            open = false;
+        }
+    }
 
 </script>
 
@@ -38,7 +49,7 @@
 {/snippet}
 
 {#if route !== undefined}
-    <Link href={route} class="w-full">
+    <Link href={route} class="w-full" on:success={onSuccess}>
         {@render itemRow()}
     </Link>
 {:else}

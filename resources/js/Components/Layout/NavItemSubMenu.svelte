@@ -4,15 +4,20 @@
     import Collapsible from "@/Components/UI/Collapsible.svelte";
     import NavItem from "@/Components/Layout/NavItem.svelte";
     import NavItems from "./NavItems.svelte";
+    import type {MediaQuery} from "svelte/reactivity";
 
-    const {
+    let {
         icon,
         label,
-        subItems
+        subItems,
+        open = $bindable(),
+        smallView,
     } : {
         icon: NavItemBase["icon"],
         label: NavItemBase['label'],
-        subItems: NavItemsType
+        subItems: NavItemsType,
+        open: boolean,
+        smallView: MediaQuery,
     } = $props();
 
     const IconComponent = $derived(icon);
@@ -20,8 +25,8 @@
 
 <Collapsible>
     {#snippet trigger(openState)}
-        <NavItem {icon} {label} {openState} />
+        <NavItem {icon} {label} {openState} bind:open {smallView} />
     {/snippet}
 
-    <NavItems navItems={subItems} />
+    <NavItems navItems={subItems} bind:open {smallView} />
 </Collapsible>

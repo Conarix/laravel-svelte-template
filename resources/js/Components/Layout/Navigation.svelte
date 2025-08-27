@@ -5,6 +5,7 @@
     import {type NavItemsType} from "@/types";
     import NavItems from '@/Components/Layout/NavItems.svelte';
     import {PermissionEnum} from "@/types/enums";
+    import type {MediaQuery} from "svelte/reactivity";
 
     const navItems: NavItemsType = [
         {
@@ -20,8 +21,16 @@
         }
     ];
 
+    let {
+        open = $bindable(),
+        smallView,
+    } : {
+        open: boolean,
+        smallView: MediaQuery,
+    } = $props();
+
 </script>
 
 <div class="flex flex-col justify-start items-start w-full gap-2">
-    <NavItems {navItems} />
+    <NavItems {navItems} bind:open {smallView} />
 </div>
