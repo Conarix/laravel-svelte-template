@@ -13,7 +13,6 @@
     import {router} from "@inertiajs/svelte";
     import Debug from "@/Components/Debug.svelte";
     import {toast} from "svelte-sonner";
-    import Collapsible from "@/Components/UI/Collapsible.svelte";
     import ShowAuditHistory from "@/Components/UI/ShowAuditHistory.svelte";
 
     const {

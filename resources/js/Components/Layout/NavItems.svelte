@@ -1,6 +1,4 @@
 <script lang="ts">
-
-    import { page } from "@inertiajs/svelte";
     import type {NavItemsType} from "@/types";
     import NavItem from "@/Components/Layout/NavItem.svelte";
     import NavItemSubMenu from "@/Components/Layout/NavItemSubMenu.svelte";
