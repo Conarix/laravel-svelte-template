@@ -105,7 +105,7 @@
         <FieldDisplayList label="Specially Assigned Permissions" values={user.permissions} key="name" nameCast={titleCase} />
     </FieldRow>
 
-    <FieldRow columns={3}>
+    <FieldRow columns={{default: 1, lg: 3}}>
         <FieldDisplay label="Created At" value={user.created_at} valueCast={dateToString()} />
         <FieldDisplay label="Updated At" value={user.updated_at} valueCast={dateToString()} />
         <FieldDisplay label="Deleted At" value={user.deleted_at} valueCast={dateToString()} />
