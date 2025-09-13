@@ -1,8 +1,8 @@
 <script lang="ts">
 
     import AppLogo from "@/Components/UI/AppLogo.svelte";
-    import NavUser from "@/Components/Layout/NavUser.svelte";
-    import Navigation from "@/Components/Layout/Navigation.svelte";
+    import NavUser from "@/Components/Layout/Navigation/NavUser.svelte";
+    import Navigation from "@/Components/Layout/Navigation/Navigation.svelte";
     import {ChevronsRight, ChevronsLeft} from "@lucide/svelte";
     import {MediaQuery} from "svelte/reactivity";
 

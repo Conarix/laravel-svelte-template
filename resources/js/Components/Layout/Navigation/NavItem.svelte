@@ -14,6 +14,8 @@
         openState,
         open = $bindable(),
         smallView,
+        minimal,
+        onclick,
     } : {
         icon: Component<IconProps>,
         label: string,
@@ -21,6 +23,8 @@
         openState?: boolean,
         open: boolean,
         smallView: MediaQuery,
+        minimal: boolean,
+        onclick?: () => void,
     } = $props();
 
     const IconComponent = $derived(icon);
@@ -36,8 +40,10 @@
 
 {#snippet itemRow()}
     <div class="flex justify-between items-center w-full hover:bg-accent p-2 rounded-md {selected ? 'bg-accent' : ''}">
-        <div class="flex justify-start items-center gap-1">
-            <IconComponent />
+        <div class="flex justify-start items-center gap-1 text-nowrap">
+            {#if !minimal}
+                <IconComponent />
+            {/if}
 
             {label}
         </div>
@@ -53,5 +59,11 @@
         {@render itemRow()}
     </Link>
 {:else}
-    {@render itemRow()}
+    {#if onclick !== undefined}
+        <div {onclick} role="button" tabindex="-1" onkeydown={(e) => e.key === 'Enter' && onclick()}>
+            {@render itemRow()}
+        </div>
+    {:else}
+        {@render itemRow()}
+    {/if}
 {/if}

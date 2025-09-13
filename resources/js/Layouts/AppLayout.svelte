@@ -1,11 +1,8 @@
 <script lang="ts">
     import type {Snippet} from "svelte";
-    import Card from "@/Components/UI/Card.svelte";
-    import AppLogo from "@/Components/UI/AppLogo.svelte";
-    import Navigation from "@/Components/Layout/Navigation.svelte";
-    import NavUser from "@/Components/Layout/NavUser.svelte";
     import Breadcrumbs from "@/Components/Layout/Breadcrumbs.svelte";
-    import NavMenu from "@/Components/Layout/NavMenu.svelte";
+    // import { default as NavMenu } from "@/Components/Layout/Navigation/SideNav.svelte";
+    import { default as NavMenu } from "@/Components/Layout/Navigation/TopNav.svelte";
     import ToastFromSession from "@/Components/Layout/ToastFromSession.svelte";
 
     let {children}: { children: Snippet } = $props();
