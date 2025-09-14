@@ -3,8 +3,6 @@
     import type {Snippet} from "svelte";
     import FieldRow from "@/Components/Forms/Partials/FieldRow.svelte";
     import Button from "@/Components/UI/Button.svelte";
-    import type {InertiaForm} from "@inertiajs/svelte";
-    import type {Writable} from "svelte/store";
 
     const {
         onsubmit,
@@ -19,7 +17,7 @@
     } = $props();
 </script>
 
-<form class="flex flex-col justify-start items-center w-full gap-4">
+<form class="flex flex-col justify-start items-center w-full gap-4" onsubmit={(e) => {e.preventDefault(); onsubmit();}}>
     {@render children()}
 
     <FieldRow justify="between" align="center">
@@ -28,7 +26,7 @@
         </div>
 
         <div class="flex justify-end items-center flex-shrink">
-            <Button onclick={onsubmit} disabled={submitDisabled}>
+            <Button type="submit" disabled={submitDisabled}>
                 Submit
             </Button>
         </div>
