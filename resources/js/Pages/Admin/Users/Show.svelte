@@ -63,6 +63,15 @@
             });
         }
 
+        if (user.can_be_impersonated) {
+            btns.push({
+                href: route('impersonate', [user.id]),
+                label: 'Impersonate',
+                variant: 'default',
+                permission: PermissionEnum.USERS_IMPERSONATE,
+            });
+        }
+
         return btns;
     });
 

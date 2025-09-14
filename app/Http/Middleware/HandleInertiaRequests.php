@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Enums\ToastType;
 use App\Models\Permission;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;
@@ -51,6 +52,7 @@ class HandleInertiaRequests extends Middleware
             'messages' => $toastMessages,
             'auth' => [
                 'user' => $request->user(),
+                'impersonator' => User::find(app('impersonate')->getImpersonatorId()),
                 'permissions' => Permission::all()
                     ->map(fn (Permission $permission) => [$permission->name => $request->user()?->can($permission->name)])
                     ->collapse()

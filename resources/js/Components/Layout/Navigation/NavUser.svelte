@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Settings, LogOut, User } from "@lucide/svelte";
+    import { Settings, LogOut, User, HatGlasses } from "@lucide/svelte";
     import {page, router} from "@inertiajs/svelte";
     import ColourSchemeSelect from "@/Components/Layout/ColourSchemeSelect.svelte";
     import type {MediaQuery} from "svelte/reactivity";
@@ -78,6 +78,17 @@
                     <h2>Colour Scheme</h2>
                     <ColourSchemeSelect />
                 </div>
+
+                {#if $page.props.auth.impersonator}
+                    <a class="flex justify-between items-center w-full p-2 hover:bg-accent rounded-lg" href={route('impersonate.leave')}>
+                        <HatGlasses />
+
+                        <div class="flex flex-col justify-center items-end">
+                            <span>Impersonating From</span>
+                            <span class="text-muted-foreground">{$page.props.auth.impersonator.name}</span>
+                        </div>
+                    </a>
+                {/if}
 
                 <a class="flex justify-between items-center w-full p-2 hover:bg-accent rounded-lg" href={route('account.show')}>
                     <User />

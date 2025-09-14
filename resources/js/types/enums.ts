@@ -8,6 +8,7 @@ export enum PermissionEnum {
 	USERS_CREATE = 'users_create',
 	USERS_EDIT = 'users_edit',
 	USERS_DELETE = 'users_delete',
+	USERS_IMPERSONATE = 'users_impersonate',
 }
 export enum ToastTypeEnum {
 	Success = 'success',

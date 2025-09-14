@@ -38,6 +38,7 @@ export interface User {
     email_verified_at: string | null,
     role: Role,
     permissions: Permission[],
+    can_be_impersonated: boolean,
     created_at: string,
     updated_at: string,
     deleted_at: string | null,
@@ -55,6 +56,7 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
     messages: { [key in keyof typeof ToastTypeEnum ]: string | null }
     auth: {
         user: User | null,
+        impersonator: User | null,
         permissions: { [key in PermissionEnum]: boolean }
     }
     ziggy: Config & { location: string, current_route: string },

@@ -14,6 +14,7 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
+    Route::impersonate();
 
     Route::prefix('account')->name('account.')->group(function () {
         Route::get('/', [AccountController::class, 'show'])->name('show');

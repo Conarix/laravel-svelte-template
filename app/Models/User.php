@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Lab404\Impersonate\Models\Impersonate;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
@@ -45,6 +46,8 @@ use Laravel\Sanctum\HasApiTokens;
  * @property-read Carbon $updated_at
  * @property-read Carbon $deleted_at
  *
+ * @property-read bool $can_be_impersonated
+ *
  * @property-read ?Role $role
  * @property-read Collection<array-key, Permission> $permissions
  */
@@ -53,6 +56,7 @@ class User extends Authenticatable implements TracksChanges
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasApiTokens, SoftDeletes;
     use TracksChangesMethods;
+    use Impersonate;
 
     protected $with = [
         'role.permissions',
@@ -81,6 +85,10 @@ class User extends Authenticatable implements TracksChanges
         'remember_token',
     ];
 
+    protected $appends = [
+        'can_be_impersonated',
+    ];
+
     /**
      * Get the attributes that should be cast.
      *
@@ -94,6 +102,11 @@ class User extends Authenticatable implements TracksChanges
         ];
     }
 
+    public function getCanBeImpersonatedAttribute(): bool
+    {
+        return $this->canBeImpersonated();
+    }
+
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
@@ -102,5 +115,16 @@ class User extends Authenticatable implements TracksChanges
     public function permissions(): BelongsToMany
     {
         return $this->belongsToMany(Permission::class);
+    }
+
+    public function canImpersonate(): bool
+    {
+        return $this->can(\App\Enums\Permission::USERS_IMPERSONATE);
+    }
+
+    public function canBeImpersonated(): bool
+    {
+        // Cannot impersonate admins
+        return $this->role->name !== \App\Enums\Role::Admin->value;
     }
 }
