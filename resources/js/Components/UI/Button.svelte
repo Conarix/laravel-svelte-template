@@ -38,7 +38,10 @@
 </script>
 
 <script lang="ts">
+    import {cn} from "@/utils/helpers";
+
     let {
+        class: className,
         variant = "default",
         size = "default",
         href = undefined,
@@ -50,7 +53,7 @@
 
 {#if href}
     <a
-        class={buttonVariants({ variant, size })}
+        class={cn(buttonVariants({ variant, size }), className)}
         {href}
         {...restProps}
     >
@@ -58,7 +61,7 @@
     </a>
 {:else}
     <button
-        class={buttonVariants({ variant, size })}
+        class={cn(buttonVariants({ variant, size }), className)}
         {type}
         {...restProps}
     >

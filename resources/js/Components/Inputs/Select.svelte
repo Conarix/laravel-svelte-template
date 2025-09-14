@@ -14,6 +14,7 @@
         multiple = false,
         error,
         placeholder = 'Select an Option',
+        onchange,
     } : {
         value: string|string[],
         label: string,
@@ -21,9 +22,8 @@
         multiple?: boolean,
         error?: string,
         placeholder?: string,
+        onchange?: () => void
     } = $props();
-
-    console.log(options);
 
     let displayValue: string = $derived.by(() => {
         const allOptions: Option[] = options.flatMap((val) => 'value' in val ? [val] : val.options)
@@ -65,6 +65,10 @@
         }
 
         value = value;
+
+        if (onchange) {
+            onchange();
+        }
     }
 
     const hidePopup = () => {

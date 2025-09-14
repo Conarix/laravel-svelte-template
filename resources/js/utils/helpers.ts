@@ -1,3 +1,6 @@
+import { DateTime } from "luxon";
+import {type ClassValue, clsx} from "clsx";
+import {twMerge} from "tailwind-merge";
 
 export const titleCase = (s: string) =>
     s.replace(/^[-_]*(.)/, (_, c) => c.toUpperCase())
@@ -103,3 +106,17 @@ export const ucfirst = (s: string) =>
 
 export const is_numeric = (s: string) =>
     !isNaN(parseFloat(s)) && isFinite(parseFloat(s));
+
+export const datesInMonth = (year: number, month: number) => {
+    let dates: DateTime[] = [];
+
+    let date = DateTime.fromObject({year: year, month: month, day: 1});
+    while (date.month === month) {
+        dates.push(date);
+        date = DateTime.fromObject({year: year, month: month, day: date.day + 1});
+    }
+
+    return dates;
+}
+
+export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));

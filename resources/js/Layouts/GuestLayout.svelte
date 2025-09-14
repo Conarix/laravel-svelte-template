@@ -16,7 +16,7 @@
 <div class="flex flex-col justify-center items-center w-full gap-4 min-h-screen">
     <AppLogo />
 
-    <Card>
+    <Card className="max-w-md">
         {@render children?.()}
     </Card>
 </div>
