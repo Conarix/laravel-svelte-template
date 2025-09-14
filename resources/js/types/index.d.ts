@@ -59,7 +59,7 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
         impersonator: User | null,
         permissions: { [key in PermissionEnum]: boolean }
     }
-    ziggy: Config & { location: string, current_route: string },
+    ziggy: Config & { location: string, base_url: string, current_route: string },
 }
 
 export interface NavItemBase {
