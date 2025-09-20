@@ -25,14 +25,12 @@
         topNav: boolean,
     } = $props();
 
-    const IconComponent = $derived(icon);
-
     let topNavOpenState: boolean = $state(false);
 </script>
 
 {#if topNav}
     <div class="relative">
-        <NavItem {icon} {label} openState={topNavOpenState} bind:open {smallView} {minimal} onclick={() => topNavOpenState = !topNavOpenState} />
+        <NavItem {icon} {label} openState={topNavOpenState} bind:open {smallView} {minimal} onclick={() => topNavOpenState = true} />
 
         {#if topNavOpenState}
             <div

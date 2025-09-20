@@ -60,7 +60,7 @@
     </Link>
 {:else}
     {#if onclick !== undefined}
-        <div {onclick} role="button" tabindex="-1" onkeydown={(e) => e.key === 'Enter' && onclick()}>
+        <div {onclick} role="button" tabindex="-1" onkeydown={(e) => e.key === 'Enter' && onclick()} class="cursor-pointer">
             {@render itemRow()}
         </div>
     {:else}
