@@ -1,10 +1,10 @@
 <script lang="ts">
 
-    import {LoaderCircle} from "@lucide/svelte";
+    import {LoaderCircle, ArrowDownUp, ArrowDownNarrowWide, ArrowDownWideNarrow} from "@lucide/svelte";
     import type {CastFunction, Paginator} from "@/types";
     import Text from "@/Components/Inputs/Text.svelte";
     import Debug from "@/Components/Debug.svelte";
-    import {Link, page, router, useForm} from "@inertiajs/svelte";
+    import {Link, page, useForm} from "@inertiajs/svelte";
     import Number from "@/Components/Inputs/Number.svelte";
     import Button from "@/Components/UI/Button.svelte";
     import {titleCase} from "@/utils/helpers";
@@ -29,40 +29,84 @@
 
     const searchParams = new URLSearchParams(window.location.search);
 
+    const sortDirections = ['', 'asc', 'desc'] as const;
     let form = $state(useForm({
         search: searchParams.get('search') ?? '',
+        sort: searchParams.get('sort') ?? '',
+        sort_direction: searchParams.get('sort_direction') ?? sortDirections[0],
         per_page: searchParams.get('per_page') ? parseInt(searchParams.get('per_page') as string, 10) : 10,
     }));
 
     let timeout: number;
 
-    $effect(() => {
-        if ($form.isDirty) {
-            clearTimeout(timeout);
+    const filterChange = () => {
+        clearTimeout(timeout);
 
-            timeout = setTimeout(() => {
-                $form.get(
-                    $page.props.ziggy.location,
-                    {
-                        replace: true
-                    }
-                );
-            }, 1000)
+        if ($form.isDirty) {
+            timeout = setTimeout(search, 1000)
         }
-    });
+    };
+
+    const search = () => {
+        $form.get(
+            $page.props.ziggy.location,
+            {
+                preserveScroll: true,
+                replace: true
+            }
+        );
+    }
+
+    const handleSortChange = (column: string) => {
+        if ($form.sort === column) {
+            // Cycle sort_direction
+            const nextIndex = sortDirections.findIndex((dir) => dir === $form.sort_direction) + 1;
+            const nextSortDirection = sortDirections[nextIndex < sortDirections.length ? nextIndex : 0];
+
+            if (nextSortDirection === '') {
+                $form.sort = '';
+            } else {
+                $form.sort_direction = nextSortDirection;
+            }
+        } else {
+            $form.sort = column;
+            $form.sort_direction = 'asc'
+        }
+
+        clearTimeout(timeout);
+        search();
+    }
 </script>
 
 <div class="relative flex flex-col justify-start items-center w-full">
     <div class="grid grid-cols-1 gap-2 w-full">
         {#if filterable}
             <div class="grid gap-2 w-full">
-                <Text bind:value={$form.search} placeholder="Search..." />
+                <Text bind:value={$form.search} placeholder="Search..." oninput={filterChange} />
             </div>
         {/if}
         <div class="grid gap-2 w-full border-b py-1 px-2"
              style="grid-template-columns: repeat({columns.length}, minmax(0, 1fr))">
             {#each columns as column, i (i)}
-                <span>{titleCase(column)}</span>
+                <div
+                    onclick={() => handleSortChange(column)}
+                    onkeydown={(e) => e.key === 'Enter' && handleSortChange(column)}
+                    tabindex="-1"
+                    role="button"
+                    class="flex items-center gap-2 cursor-pointer"
+                >
+                    <span class="text-lg">{titleCase(column)}</span>
+
+                    {#if $form.sort === column}
+                        {#if $form.sort_direction === 'asc'}
+                            <ArrowDownNarrowWide />
+                        {:else}
+                            <ArrowDownWideNarrow />
+                        {/if}
+                    {:else}
+                        <ArrowDownUp />
+                    {/if}
+                </div>
             {/each}
         </div>
         <div class="grid grid-cols-1 w-full divide-y">

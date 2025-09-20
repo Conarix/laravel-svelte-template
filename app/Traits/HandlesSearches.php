@@ -24,6 +24,13 @@ trait HandlesSearches
             }
         });
 
+        if ($request->get('sort')) {
+            $query->orderBy(
+                $request->get('sort'),
+                $request->get('sort_direction', 'asc')
+            );
+        }
+
         $paginator = $query->paginate($request->query('per_page', 10));
 
         foreach ($request->query() as $key => $value) {

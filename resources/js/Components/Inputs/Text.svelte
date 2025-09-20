@@ -9,11 +9,13 @@
         value = $bindable(''),
         error,
         placeholder,
+        oninput,
     }: {
         label?: string,
         value: string,
         error?: string,
         placeholder?: string
+        oninput?: (e: Event) => void,
     } = $props();
 
     const id = uuidV4();
@@ -21,6 +23,6 @@
 
 <div class="flex flex-col">
     <FieldLabel {id}>{label}</FieldLabel>
-    <Base {id} type="text" bind:value {placeholder} />
+    <Base {id} type="text" bind:value {placeholder} {oninput} />
     <InputError {error}/>
 </div>
