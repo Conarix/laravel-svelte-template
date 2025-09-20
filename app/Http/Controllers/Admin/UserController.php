@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\AuditTrack\ChangeType;
 use App\Enums\Permission;
 use App\Enums\ToastType;
 use App\Http\Controllers\Controller;
@@ -127,6 +128,14 @@ class UserController extends Controller
     {
         $user->tokens()->delete();
         $token = $user->createToken('User Token')->plainTextToken;
+
+        create_audit_track(
+            $user,
+            ChangeType::Update,
+            [
+                'API Token' => 'Regenerated API Token'
+            ]
+        );
 
         return redirect()->route('admin.users.show', [$user])
             ->with('token', $token)

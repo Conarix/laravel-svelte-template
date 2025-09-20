@@ -16,3 +16,9 @@ export enum ToastTypeEnum {
 	Warning = 'warning',
 	Error = 'error',
 }
+export enum ChangeTypeEnum {
+	Creation = 'creation',
+	Update = 'update',
+	Deletion = 'deletion',
+	Restoration = 'restoration',
+}

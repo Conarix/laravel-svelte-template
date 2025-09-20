@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    import {router} from "@inertiajs/svelte";
+    import {Link, router} from "@inertiajs/svelte";
     import Button from "@/Components/UI/Button.svelte";
     import { page } from "@inertiajs/svelte";
     import type {Snippet} from "svelte";
@@ -30,9 +30,11 @@
                         {button.label}
                     </Button>
                 {:else}
-                    <Button href={button.href} variant={button.variant}>
-                        {button.label}
-                    </Button>
+                    <Link href={button.href}>
+                        <Button variant={button.variant}>
+                            {button.label}
+                        </Button>
+                    </Link>
                 {/if}
             {/if}
         {/each}

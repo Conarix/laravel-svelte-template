@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\AuditTrack\ChangeType;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
@@ -11,7 +12,7 @@ class AuditTrack extends Model
         'user_id',
         'trackable_type',
         'trackable_id',
-        'creation',
+        'type',
         'changes',
     ];
 
@@ -25,7 +26,8 @@ class AuditTrack extends Model
     ];
 
     protected $casts = [
-        'changes' => 'json'
+        'changes' => 'json',
+        'type' => ChangeType::class,
     ];
 
     public function user(): BelongsTo

@@ -38,7 +38,7 @@
 
 {#if user}
     <div
-        class={["relative", "flex", "justify-between", "items-center", !topNav && "w-full", "gap-2", "p-2", "hover:bg-accent", "rounded-lg"]}
+        class={["relative", "flex", "justify-between", "items-center", !topNav && "w-full", "gap-2", "p-2", "hover:bg-accent", "rounded-lg", "cursor-pointer"]}
         onclick={togglePopup}
         onkeydown={togglePopup}
         role="button"

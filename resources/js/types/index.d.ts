@@ -1,7 +1,7 @@
 import type {Component} from "svelte";
 import type {IconProps} from "@lucide/svelte";
 import type {Config} from "ziggy-js";
-import {PermissionEnum, RoleEnum, ToastTypeEnum} from "@/types/enums";
+import {ChangeTypeEnum, PermissionEnum, RoleEnum, ToastTypeEnum} from "@/types/enums";
 import type {ButtonVariant} from "@/Components/UI/Button.svelte";
 import type {Writable} from "svelte/store";
 import type {InertiaForm} from "@inertiajs/svelte";
@@ -9,7 +9,7 @@ import type {InertiaForm} from "@inertiajs/svelte";
 export interface AuditTrack {
     id: number,
     user_id: number,
-    creation: boolean,
+    type: ChangeTypeEnum,
     changes: { [key: string]: any },
     created_at: string,
     updated_at: string,

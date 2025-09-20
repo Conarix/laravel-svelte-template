@@ -14,7 +14,7 @@
 
 <Collapsible>
     {#snippet trigger(openState)}
-        <div class="flex justify-between items-center w-full gap-4">
+        <div class="flex justify-between items-center w-full gap-4 cursor-pointer">
             <h1 class="text-2xl font-semibold">View Update History</h1>
 
             <ChevronDown class={['transition-[rotate]', 'duration-100', openState && 'rotate-180']} />
