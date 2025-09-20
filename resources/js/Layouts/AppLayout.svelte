@@ -12,7 +12,7 @@
     <NavMenu />
 
     <div class="flex flex-col justify-start items-center w-full p-8">
-        <Breadcrumbs/>
+        <Breadcrumbs />
 
         <div class="flex flex-col justify-start items-center w-full m-8">
             {@render children()}
