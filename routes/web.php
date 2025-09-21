@@ -2,6 +2,7 @@
 
 use App\Enums\Permission;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Middleware\HasPermission;
 use Illuminate\Support\Facades\Route;
@@ -46,6 +47,11 @@ Route::middleware('auth')->group(function () {
                     Route::post('/{user}/restore', [UserController::class, 'restore'])->withTrashed()->name('restore');
                 });
             });
+        });
+
+        Route::middleware(HasPermission::permission(Permission::PERMISSIONS_EDIT))->group(function () {
+            Route::get('/permissions', [PermissionController::class, 'edit'])->name('permissions.edit');
+            Route::put('/permissions', [PermissionController::class, 'update'])->name('permissions.update');
         });
     });
 });

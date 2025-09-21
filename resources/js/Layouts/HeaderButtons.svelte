@@ -8,16 +8,18 @@
 
     type Props = {
         buttons?: HeaderButton[],
+        duplicate?: boolean;
         children: Snippet
     }
 
     const {
         buttons = [],
+        duplicate = false,
         children
     }: Props = $props();
 </script>
 
-<div class="flex flex-col w-full gap-4">
+{#snippet buttonRow()}
     <div class="flex justify-end items-center w-full gap-2">
         {#each buttons as button, i (i)}
             {#if button.permission === undefined || $page.props.auth.permissions[button.permission] }
@@ -39,6 +41,14 @@
             {/if}
         {/each}
     </div>
+{/snippet}
+
+<div class="flex flex-col w-full gap-4">
+    {@render buttonRow()}
 
     {@render children()}
+
+    {#if duplicate}
+        {@render buttonRow()}
+    {/if}
 </div>

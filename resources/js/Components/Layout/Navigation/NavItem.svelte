@@ -40,7 +40,7 @@
 
 {#snippet itemRow()}
     <div class="flex justify-between items-center w-full hover:bg-accent p-2 rounded-md {selected ? 'bg-accent' : ''}">
-        <div class="flex justify-start items-center gap-1 text-nowrap">
+        <div class="flex justify-start items-center gap-1">
             {#if !minimal}
                 <IconComponent />
             {/if}

@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    import {AlarmClock, Binary, Home, User} from "@lucide/svelte";
+    import {Home, ShieldQuestionMark, ShieldUser, User} from "@lucide/svelte";
     import {route} from "ziggy-js";
     import {type NavItemsType} from "@/types";
     import NavItems from '@/Components/Layout/Navigation/NavItems.svelte';
@@ -14,19 +14,20 @@
             route: route('dashboard'),
         },
         {
-            icon: User,
-            label: "Users",
-            route: route('admin.users.index'),
-            permission: PermissionEnum.USERS_VIEW,
-        },
-        {
-            icon: Binary,
-            label: "Test Sub Menu",
+            icon: ShieldUser,
+            label: "Admin",
             subItems: [
                 {
-                    icon: AlarmClock,
-                    label: 'Test Item',
-                    route: '#'
+                    icon: User,
+                    label: 'Users',
+                    route: route('admin.users.index'),
+                    permission: PermissionEnum.USERS_VIEW,
+                },
+                {
+                    icon: ShieldQuestionMark,
+                    label: 'Role Permissions',
+                    route: route('admin.permissions.edit'),
+                    permission: PermissionEnum.PERMISSIONS_EDIT,
                 }
             ]
         }

@@ -20,6 +20,7 @@ return new class extends Migration
         \App\Enums\Permission::USERS_EDIT,
         \App\Enums\Permission::USERS_DELETE,
         \App\Enums\Permission::USERS_IMPERSONATE,
+        \App\Enums\Permission::PERMISSIONS_EDIT,
     ];
 
     /**

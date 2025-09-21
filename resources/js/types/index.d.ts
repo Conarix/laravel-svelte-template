@@ -24,9 +24,14 @@ export interface Role {
     updated_at: string,
 }
 
+export interface RoleWithPermissions extends Role {
+    permissions: Permission[];
+}
+
 export interface Permission {
     id: number,
     name: PermissionEnum,
+    display_name: string,
     created_at: string,
     updated_at: string,
 }
@@ -73,7 +78,7 @@ export interface NavItemLink extends NavItemBase {
 }
 
 export interface NavItemMenu extends NavItemBase {
-    subItems: NavItemsType
+    subItems: NavItemLink[]
 }
 
 export type NavItemsType = (NavItemLink | NavItemMenu)[];

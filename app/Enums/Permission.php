@@ -15,6 +15,8 @@ enum Permission: string
 
     case USERS_IMPERSONATE = "users_impersonate";
 
+    case PERMISSIONS_EDIT = "permissions_edit";
+
     public function title(): string
     {
         return match ($this) {
@@ -23,6 +25,7 @@ enum Permission: string
             self::USERS_EDIT => "Edit User",
             self::USERS_DELETE => "Delete User",
             self::USERS_IMPERSONATE => "Impersonate User",
+            self::PERMISSIONS_EDIT => "Edit Permissions",
         };
     }
 }

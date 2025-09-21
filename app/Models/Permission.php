@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\Role as RoleEnum;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
@@ -36,6 +37,10 @@ class Permission extends Model
         'name'
     ];
 
+    protected $appends = [
+        'display_name'
+    ];
+
     public static function createFromEnum(PermissionEnum $enum): Permission
     {
         return static::create([
@@ -64,6 +69,12 @@ class Permission extends Model
             ->get();
     }
 
+    public function displayName(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => PermissionEnum::tryFrom($this->name)->title()
+        );
+    }
 
     public function users(): BelongsToMany
     {
