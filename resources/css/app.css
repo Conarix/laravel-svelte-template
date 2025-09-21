@@ -126,6 +126,8 @@
         --sidebar-accent-foreground: hsl(0 0% 30%);
         --sidebar-border: hsl(0 0% 91%);
         --sidebar-ring: hsl(217.2 91.2% 59.8%);
+        --spinner-highlight-color: hsl(0 0% 65%);
+        --spinner-default-color: hsl(0 0% 15%);
     }
 
     .dark {
@@ -162,6 +164,8 @@
         --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
         --sidebar-border: hsl(0 0% 15.9%);
         --sidebar-ring: hsl(217.2 91.2% 59.8%);
+        --spinner-highlight-color: hsl(0 0% 45%);
+        --spinner-default-color: hsl(0 0% 90%);
     }
 }
 
@@ -176,15 +180,18 @@
 
         --cp-bg-color: var(--background);
         --cp-border-color: var(--border);
-        --cp-text-color: var(--color-foreground);
+        --cp-text-color: var(--foreground);
         --cp-input-color: var(--input);
 
-        --date-picker-foreground: var(--color-foreground);
+        --date-picker-foreground: var(--foreground);
         --date-picker-background: var(--background);
         --date-picker-highlight-border: var(--border);
         --date-picker-highlight-shadow: var(--shadow);
-        --date-picker-selected-color: var(--color-foreground);
+        --date-picker-selected-color: var(--foreground);
         --date-picker-selected-background: var(--accent);
+
+        --spinner-light-off: var(--spinner-default-color);
+        --spinner-light-on: var(--spinner-highlight-color);
 
         --date-input-width: 100%;
     }
