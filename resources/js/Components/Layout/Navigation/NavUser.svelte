@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Settings, LogOut, User, HatGlasses } from "@lucide/svelte";
-    import {page, router} from "@inertiajs/svelte";
+    import {Link, page, router} from "@inertiajs/svelte";
     import ColourSchemeSelect from "@/Components/Layout/ColourSchemeSelect.svelte";
     import type {MediaQuery} from "svelte/reactivity";
 
@@ -80,21 +80,21 @@
                 </div>
 
                 {#if $page.props.auth.impersonator}
-                    <a class="flex justify-between items-center w-full p-2 hover:bg-accent rounded-lg" href={route('impersonate.leave')}>
+                    <Link class="flex justify-between items-center w-full p-2 hover:bg-accent rounded-lg" href={route('impersonate.leave')}>
                         <HatGlasses />
 
                         <div class="flex flex-col justify-center items-end">
                             <span>Impersonating From</span>
                             <span class="text-muted-foreground">{$page.props.auth.impersonator.name}</span>
                         </div>
-                    </a>
+                    </Link>
                 {/if}
 
-                <a class="flex justify-between items-center w-full p-2 hover:bg-accent rounded-lg" href={route('account.show')}>
+                <Link class="flex justify-between items-center w-full p-2 hover:bg-accent rounded-lg" href={route('account.show')}>
                     <User />
 
                     <span>Manage Account</span>
-                </a>
+                </Link>
 
                 <button class="flex justify-between items-center w-full p-2 hover:bg-accent rounded-lg" onclick={logout}>
                     <LogOut class="text-red-500" />

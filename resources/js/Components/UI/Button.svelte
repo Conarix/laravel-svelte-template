@@ -39,6 +39,7 @@
 
 <script lang="ts">
     import {cn} from "@/utils/helpers";
+    import {Link} from "@inertiajs/svelte";
 
     let {
         class: className,
@@ -52,13 +53,13 @@
 </script>
 
 {#if href}
-    <a
+    <Link
         class={cn(buttonVariants({ variant, size }), className)}
         {href}
         {...restProps}
     >
         {@render children?.()}
-    </a>
+    </Link>
 {:else}
     <button
         class={cn(buttonVariants({ variant, size }), className)}
