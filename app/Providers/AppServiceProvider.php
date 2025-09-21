@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Stringable;
+use Illuminate\Validation\Rules\Password;
 
 /**
  * @mixin RedirectResponse
@@ -29,6 +30,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Password::defaults(fn() => Password::min(8)
+            ->letters()
+            ->numbers()
+            ->mixedCase()
+            ->symbols()
+        );
+
         RedirectResponse::macro(
             'withToast',
             function (ToastType $type, string $message) {
@@ -48,7 +56,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::before(function (User $user, $ability) {
             $permissions = $user->role->permissions->merge($user->permissions)->unique();
 
-            return $permissions->contains(fn (Permission $permission) => $permission->name === $ability);
+            return $permissions->contains(fn(Permission $permission) => $permission->name === $ability);
         });
     }
 }

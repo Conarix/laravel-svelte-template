@@ -46,7 +46,7 @@
 <HeaderButtons {buttons}>
     <PageHeading text="Edit User - {user.name}" />
 
-    <UserForm bind:form {onsubmit} {roles} {permissions} />
+    <UserForm bind:form {onsubmit} {roles} {permissions} update />
 
     <Debug {$form} />
 </HeaderButtons>

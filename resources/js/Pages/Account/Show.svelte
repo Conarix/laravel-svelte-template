@@ -1,6 +1,6 @@
 <script lang="ts">
     import HeaderButtons from '@/Layouts/HeaderButtons.svelte'
-    import type {CloseDialogFunction, HeaderButton, OpenDialogFunction} from "@/types";
+    import type {CloseDialogFunction, HeaderButton, OpenDialogFunction, PasswordValidationRules} from "@/types";
     import PageHeading from "@/Components/UI/PageHeading.svelte";
     import type {User} from "@/types";
     import FieldRow from "@/Components/Forms/Partials/FieldRow.svelte";
@@ -14,6 +14,7 @@
     import Dialog from "@/Components/UI/Dialog.svelte";
     import Button from "@/Components/UI/Button.svelte";
     import Debug from "@/Components/Debug.svelte";
+    import PasswordValidation from "@/Components/UI/PasswordValidation.svelte";
 
 
     let openDeleteDialog: OpenDialogFunction = $state();
@@ -28,9 +29,11 @@
     ];
 
     let {
-        user
+        user,
+        rules,
     } : {
         user: User;
+        rules: PasswordValidationRules;
     } = $props();
 
     let form = useForm({
@@ -87,6 +90,8 @@
 
         <Base {onsubmit}>
             <p class="w-full italic">Fill out the form below to change your password.</p>
+
+            <PasswordValidation {rules} password={$form.new_password} />
 
             <FieldRow columns={1}>
                 <Password label="Current Password" bind:value={$form.current_password} error={$form.errors['current_password']} />

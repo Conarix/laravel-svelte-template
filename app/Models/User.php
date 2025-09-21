@@ -73,6 +73,7 @@ class User extends Authenticatable implements TracksChanges
         'name',
         'email',
         'password',
+        'reset_password_on_login',
     ];
 
     /**

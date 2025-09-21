@@ -38,6 +38,7 @@ class UserService
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
+            'reset_password_on_login' => $validated['reset_password_on_login'],
         ]);
 
         $user->permissions()->sync($permissions->pluck('id'));
@@ -62,10 +63,13 @@ class UserService
             ? ['password' => Hash::make($validated['password'])]
             : [];
 
+        // Update user
+        // Force password reset if password changes
         $user->update([
             'role_id' => $role->id,
             'name' => $validated['name'],
             'email' => $validated['email'],
+            'reset_password_on_login' => $validated['password'] ? true : $validated['reset_password_on_login'],
             ...$password,
         ]);
 

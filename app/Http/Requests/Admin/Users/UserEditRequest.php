@@ -33,6 +33,7 @@ class UserEditRequest extends FormRequest
             'permissions' => ['nullable', 'array'],
             'permissions.*' => ['required', Rule::enum(Permission::class)],
             'password' => ['nullable', 'string', Password::defaults(), 'confirmed'],
+            'reset_password_on_login' => ['required', 'boolean'],
         ];
     }
 }

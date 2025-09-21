@@ -47,6 +47,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->boolean('reset_password_on_login')->default(false);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

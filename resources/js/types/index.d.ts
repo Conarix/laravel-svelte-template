@@ -40,6 +40,7 @@ export interface User {
     id: number,
     name: string,
     email: string,
+    reset_password_on_login: boolean,
     email_verified_at: string | null,
     role: Role,
     permissions: Permission[],
@@ -49,6 +50,15 @@ export interface User {
     deleted_at: string | null,
 
     api_token?: string,
+}
+
+export interface PasswordValidationRules {
+    min: number | null;
+    max: number | null;
+    mixedCase: boolean;
+    letters: boolean;
+    numbers: boolean;
+    symbols: boolean;
 }
 
 export interface WithAuditTracks<T extends object> extends T {

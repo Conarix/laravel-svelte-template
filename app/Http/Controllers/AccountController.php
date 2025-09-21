@@ -7,6 +7,7 @@ use App\Http\Requests\UpdatePasswordRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
 
 class AccountController extends Controller
@@ -17,6 +18,7 @@ class AccountController extends Controller
 
         return Inertia::render('Account/Show', [
             'user' => $user,
+            'rules' => Password::defaults()->appliedRules(),
         ]);
     }
 

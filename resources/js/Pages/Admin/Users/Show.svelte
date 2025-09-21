@@ -120,6 +120,10 @@
         <FieldDisplay label="Deleted At" value={user.deleted_at} valueCast={dateToString()} />
     </FieldRow>
 
+    <FieldRow columns={1}>
+        <FieldDisplay label="Reset Password On Login" value={user.reset_password_on_login ? 'Yes' : 'No'} />
+    </FieldRow>
+
     {#if user.api_token}
         <FieldRow columns={1}>
             <FieldDisplay label="API Token" value={user.api_token} hint="Take note of this value as you will not be able to see this again." />

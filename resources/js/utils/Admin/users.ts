@@ -7,6 +7,7 @@ export type UserFormInner = {
     permissions: Permission['name'][],
     password: string,
     password_confirmation: string,
+    reset_password_on_login: boolean,
 };
 
 export const newUserForm = (user?: User): UserFormInner => {
@@ -25,5 +26,6 @@ export const newUserForm = (user?: User): UserFormInner => {
         permissions,
         password: '',
         password_confirmation: '',
+        reset_password_on_login: user?.reset_password_on_login ?? true,
     }
 }
