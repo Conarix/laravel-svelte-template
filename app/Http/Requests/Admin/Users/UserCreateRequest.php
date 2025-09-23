@@ -5,12 +5,15 @@ namespace App\Http\Requests\Admin\Users;
 use App\Enums\Permission;
 use App\Enums\Role;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Concerns\CanBePrecognitive;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
 class UserCreateRequest extends FormRequest
 {
+    use CanBePrecognitive;
+
     /**
      * Determine if the user is authorized to make this request.
      */

@@ -3,7 +3,7 @@
     import type {HeaderButton, SelectOptions} from "@/types";
     import HeaderButtons from "@/Layouts/HeaderButtons.svelte";
     import PageHeading from "@/Components/UI/PageHeading.svelte";
-    import {useForm} from "@inertiajs/svelte";
+    import {useForm} from "@/utils/precognition.svelte";
     import {newUserForm} from "@/utils/Admin/users";
     import UserForm from "@/Components/Forms/Admin/UserForm.svelte";
     import Debug from "@/Components/Debug.svelte";
@@ -24,7 +24,11 @@
         }
     ];
 
-    let form = $state(useForm(newUserForm()))
+    let form = $state(useForm(
+        newUserForm(),
+        'post',
+        route('admin.users.store'),
+    ))
 
     const onsubmit = () => {
         $form.post(route('admin.users.store'));
